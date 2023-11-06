@@ -1,0 +1,132 @@
+#!/bin/bash
+
+#This is just a simple Array that will display numbers from 1 to 10 in a random order
+#In order to run this script please follow the next steps:
+#Copy everything from this text file(until "TASK2") to an empty txt file, rename it "task1.sh"
+#Open a terminal and type: chmod +x task1.sh | bash task1.sh
+
+#Created an empty array
+NUMBERS=() 
+#Filled the array with numbers from 1 to 10 with a for loop
+for i in {1..10}; do
+  NUMBERS+=($i)
+done
+#Displaying shuffled elements in the array
+shuf -e ${NUMBERS[@]}
+
+#This is just for a better display
+echo ""
+echo " ********************************************************** "
+echo ""
+
+#TEST 1
+echo "Trying for loop with negative numbers"
+
+TEST_1=()
+for i in {-5..5}; do
+echo  ""$i" added to array" 
+    TEST_1+=($i)
+done
+echo "array before shuffle"
+echo "${TEST_1[*]}"
+echo "array after shuffle"
+#Found a bug while trying to shuffle numbers so the last code line will not be printed
+#shuf -e ${TEST_1[@]}
+
+echo ""
+echo " ********************************************************** "
+echo ""
+
+#TEST 2
+echo "Tried for loop with even numbers, range 0-20"
+
+TEST_2=()
+for i in {0..20..2}; do
+echo  ""$i" added to array"
+    TEST_2+=($i)
+done
+echo "array before shuffle"
+echo "${TEST_2[@]}"
+echo "numbers after shuffle"
+shuf -e ${TEST_2[@]}
+#This one works fine
+
+echo ""
+echo " ********************************************************** "
+echo ""
+
+#TEST 3
+echo "Tried for loop with even numbers, range 1-19"
+
+TEST_3=()
+for i in {1..19..2}; do
+    TEST_3+=($i)
+done
+echo "array before shuffle"
+echo "${TEST_3[@]}"
+echo "numbers after shuffle"
+shuf -e ${TEST_3[@]}
+
+#This one works fine too
+
+echo ""
+echo " ********************************************************** "
+echo ""
+
+#Script in debugging mode, this will take everything step by step for a better understanding
+
+set -x
+NUMBERS=() 
+for i in {1..10}; do
+  NUMBERS+=($i)
+done
+shuf -e ${NUMBERS[@]}
+set +x
+
+#Conclusion
+#I found just a bug in my version when trying to shuffle negative numbers 
+#This is very limited because it is not shell interactive and any range change can be done only if the code is modified :(.
+#Launches a new process for every shell command executed
+#Also I tried to find the cleanest method for this mini-challange with just few lines of code
+#END
+
+
+TASK 2
+
+SSL offloading is the process of removing the SSL-based encryption from incoming traffic to relieve a web server of the processing burden of decrypting and/or encrypting traffic sent via SSL
+
+While monitoring a server that is used for SSL offloading and proxying, it's important to ensure availability, performance and security.
+
+Here are some KEY POINTS for the server to be up and running for it's purpose:
+
+1.CPU
+-A crucial resource for SSL Offloading 
+-to measure CPU it should used "uptime", in this case we have 4x processors so the average load should be lower than 4
+-'top' command also can be useful
+-we shall measure every Intel CPU and ensure that none it's used at maximum
+
+2.MEMORY
+-64GB RAM can be really easy utilised if there are a lot of requests
+-to measure memory the command "top" and order by memory can be used, or "free"
+
+3.DISK USAGE
+-for disk usage the command is "df -h" 
+-ensuring always the server does not run out of space for log or ssl certificates
+-to save some space from time to time logs can be zipped
+
+4.NETWORK TRAFFIC
+-command 'iftop' can be used, also floods should be avoided or overloading the network can create spikes on the system
+-monitoring specific metrics related to the proxy server software (e.g Nginx)
+-to monitor response time and request, some specific applications can be used
+-tcpdump could be used to analyse weirt packets
+
+5.SECURITY:
+-monitoring SSL certificates expiring dates are important to avoid service disruption
+-to ensure the security in real-time, Intrusion detection systems (IDS) can be used to find any threat
+-firewall settings, proxy settings to block unwanted requests
+
+-tools like Grafana or Prometheus can be extremely useful, or Nagios for monitoring purpose(especially hardware's performance: CPU, memory, Disk space)
+-last but not last, a combination of scripts, build-in commands and specific applications should be used to prevent a server failure
+
+Kind regards,
+Madalin Tilianu
